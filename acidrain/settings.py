@@ -154,6 +154,12 @@ LOGGING = {
             'filename': os.path.join(BASE_DIR, 'acidrain-db.log'),
             'formatter': 'verbose',
         },
+        'file_request': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'acidrain-request.log'),
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'django': {
@@ -163,6 +169,11 @@ LOGGING = {
         },
         'django.db.backends': {
             'handlers': ['file_db'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['file_request'],
             'level': 'DEBUG',
             'propagate': False,
         },
