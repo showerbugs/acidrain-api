@@ -13,6 +13,7 @@ class Assessment(Model):
 
 
 class History(Model):
+    user = ForeignKey('auth.User', related_name='assessment_histories')
     assessment = ForeignKey('Assessment', related_name='histories')
     score = IntegerField()
     created_at = DateTimeField(auto_now_add=True)
