@@ -1,10 +1,12 @@
 import json
 
-from django.contrib.auth.models import User
-from django.core import serializers
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
 from django.views.generic import View
+
+from users.models import User
 
 
 class UserView(View):
@@ -31,7 +33,7 @@ class UserView(View):
                 'success': False,
                 'message': 'this name already exists',
             })
-        user = json.loads(serializers.serialize('json', [user]))[0]
+        user = user.to_dict()
 
         return JsonResponse({
             'success': True,
