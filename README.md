@@ -111,3 +111,63 @@
     "message": "login required"
 }
 ```
+
+### 평가
+
+#### 평가 시작
+
+- URL: GET /sentences/
+- 파라메터:
+    - `assessment_type`: word(단어), sentence(문장)
+    - `difficulty`: 3(상), 2(중), 1(하)
+    - `sentence_count`
+- 성공:
+
+```
+{
+    "success": True,
+    "sentences": [{
+        "body": "apple",
+        "difficulty": 1,
+        "type": "word"
+    }]
+}
+```
+
+- 요청의 바디가 없을 경우:
+
+```
+{
+    "success": false,
+    "message": "no request body"
+}
+```
+
+- 세션이 없는 경우
+
+```
+{
+    "success": false,
+    "message": "login required"
+}
+```
+
+- `assessment_type `, `difficulty `, `sentence_count`가 없을 경우:
+
+```
+{
+    "success": false,
+    "message": "assessment_type, difficulty, sentence_count is required,
+}
+```
+
+- 요청한 숫자보다 전체 문제 셋이 더 적은 경우
+
+```
+{
+    "success": false,
+    "message": "sentences are not enough"
+}
+```
+
+#### 평가 끝
