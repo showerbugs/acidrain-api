@@ -50,7 +50,6 @@
 #### 로그인
 
 - URL: POST /session/
-- 파라메터: 
 - 파라메터: `name`, `password`
 - 성공:
 
@@ -89,5 +88,26 @@
 {
     "success": false,
     "message": "authentication failed"
+}
+```
+
+#### 로그아웃
+
+- URL: DELETE /session/
+- 파라메터: 없음
+- 성공:
+
+```
+{
+    "success": true,
+}
+```
+
+- 세션이 없는 경우
+
+```
+{
+    "success": false,
+    "message": "login required"
 }
 ```
