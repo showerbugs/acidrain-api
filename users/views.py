@@ -29,7 +29,6 @@ class UserView(View):
         serialized_user = {
             'name': user['fields']['username'],
             'joined_at': user['fields']['date_joined'],
-            'last_signin_at': user['fields']['last_login'],
         }
 
         return JsonResponse({

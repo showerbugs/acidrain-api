@@ -25,7 +25,7 @@ SECRET_KEY = 'qv(jq*ta^h7)_824l2ut*l8)ymi&no$t&fl0%7uls3s8jcjf+_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['acidrain.azurewebsites.net']
+ALLOWED_HOSTS = ['localhost', 'acidrain.azurewebsites.net']
 
 
 # Application definition
