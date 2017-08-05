@@ -1,8 +1,9 @@
 import json
 
-from django.core import serializers
-from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.core import serializers
+from django.db.utils import IntegrityError
+from django.http import JsonResponse
 from django.views.generic import View
 
 
@@ -23,17 +24,21 @@ class UserView(View):
                 'message': 'no name or password',
             })
 
-        user = User.objects.create_user(name, password=password)
+        try:
+            user = User.objects.create_user(name, password=password)
+        except IntegrityError:
+            return JsonResponse({
+                'success': False,
+                'message': 'this name already exists',
+            })
         user = json.loads(serializers.serialize('json', [user]))[0]
-        print(user)
-        serialized_user = {
-            'name': user['fields']['username'],
-            'joined_at': user['fields']['date_joined'],
-        }
 
         return JsonResponse({
             'success': True,
-            'user': serialized_user,
+            'user': {
+                'name': user['fields']['username'],
+                'joined_at': user['fields']['date_joined'],
+            },
         })
 
 
