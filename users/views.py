@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.core import serializers
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
@@ -69,6 +70,7 @@ class SessionView(View):
                 'message': 'authentication failed',
             })
         login(request, user)
+
         serialized = serializers.serialize('json', [user])
         user = json.loads(serialized)[0]
 
@@ -79,4 +81,16 @@ class SessionView(View):
                 'joined_at': user['fields']['date_joined'],
                 'last_signin_at': user['fields']['last_login']
             },
+        })
+
+    def delete(self, request):
+        if not request.user.is_authenticated():
+            return JsonResponse({
+                'success': False,
+                'message': 'login required',
+            })
+        logout(request)
+
+        return JsonResponse({
+            'success': True,
         })
