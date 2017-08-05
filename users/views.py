@@ -7,10 +7,14 @@ from django.core import serializers
 from django.db.utils import IntegrityError
 from django.http import JsonResponse
 from django.views.generic import View
+from django.utils.decorators import method_decorator
 
+from commons.decorators import request_body_required
+from commons.decorators import login_required
 from users.models import User
 
 
+@method_decorator(request_body_required, name='dispatch')
 class UserView(View):
     def post(self, request):
         if not request.body:
@@ -47,13 +51,8 @@ class UserView(View):
 
 
 class SessionView(View):
+    @method_decorator(request_body_required)
     def post(self, request):
-        if not request.body:
-            return JsonResponse({
-                'success': False,
-                'message': 'no request body',
-            })
-
         params = json.loads(request.body.decode())
         name = params.get('name')
         password = params.get('password')
@@ -83,12 +82,8 @@ class SessionView(View):
             },
         })
 
+    # @method_decorator(login_required)
     def delete(self, request):
-        # if not request.user.is_authenticated():
-        #     return JsonResponse({
-        #         'success': False,
-        #         'message': 'login required',
-        #     })
         # logout(request)
 
         return JsonResponse({

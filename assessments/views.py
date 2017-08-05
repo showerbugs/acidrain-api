@@ -2,25 +2,18 @@ import json
 
 from django.http import JsonResponse
 from django.views.generic import View
+from django.utils.decorators import method_decorator
 
+from commons.decorators import request_body_required
+from commons.decorators import login_required
 from assessments.models import Assessment
 from assessments.models import History
 
 
+@method_decorator(request_body_required, name='dispatch')
 class HistoryView(View):
+    # @method_decorator(login_required)
     def post(self, request):
-        if not request.body:
-            return JsonResponse({
-                'success': False,
-                'message': 'no request body',
-            })
-
-        # if not request.user.is_authenticated():
-        #     return JsonResponse({
-        #         'success': False,
-        #         'message': 'login required',
-        #     })
-
         params = json.loads(request.body.decode())
         assessment_type = params.get('assessment_type')
         difficulty = params.get('difficulty')
