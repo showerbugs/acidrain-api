@@ -1,19 +1,15 @@
-import json
-
 from django.http import JsonResponse
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 
-from commons.decorators import request_body_required
 from commons.decorators import login_required
 from sentences.models import Sentence
 
 
-@method_decorator(request_body_required, name='dispatch')
 class SentenceView(View):
     # @method_decorator(login_required)
     def get(self, request):
-        params = json.loads(request.body.decode())
+        params = request.GET
         assessment_type = params.get('assessment_type')
         difficulty = params.get('difficulty')
         sentence_count = params.get('sentence_count')
