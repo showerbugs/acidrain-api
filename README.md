@@ -157,7 +157,7 @@
 ```
 {
     "success": false,
-    "message": "assessment_type, difficulty, sentence_count is required,
+    "message": "assessment_type, difficulty, sentence_count are required,
 }
 ```
 
@@ -171,3 +171,43 @@
 ```
 
 #### 평가 끝
+
+- URL: POST /assessments/histories/
+- 파라메터:
+    - `assessment_type`: word(단어), sentence(문장)
+    - `difficulty`: 3(상), 2(중), 1(하)
+    - `score`
+- 성공:
+
+```
+{
+    "success": True,
+}
+```
+
+- 요청의 바디가 없을 경우:
+
+```
+{
+    "success": false,
+    "message": "no request body"
+}
+```
+
+- 세션이 없는 경우
+
+```
+{
+    "success": false,
+    "message": "login required"
+}
+```
+
+- `assessment_type `, `difficulty `, `score`가 없을 경우:
+
+```
+{
+    "success": false,
+    "message": "assessment_type, difficulty, score are required,
+}
+```
