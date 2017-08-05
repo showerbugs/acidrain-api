@@ -17,8 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from users.views import UserView
+from users.views import SessionView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^users/$', UserView.as_view(), name='users'),
+    url(r'^sessions/$', SessionView.as_view(), name='sessions'),
 ]
