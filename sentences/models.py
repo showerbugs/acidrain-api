@@ -28,5 +28,5 @@ class Sentence(Model):
         return dicted
 
     def __str__(self):
-        return 'type: {}, difficulty: {}, body {}'.format(
+        return 'type: {}, difficulty: {}, {}'.format(
             self.type, self.difficulty, self.body)

@@ -14,11 +14,11 @@ class SentenceView(View):
                 'message': 'no request body',
             })
 
-        if not request.user.is_authenticated():
-            return JsonResponse({
-                'success': False,
-                'message': 'login required',
-            })
+        # if not request.user.is_authenticated():
+        #     return JsonResponse({
+        #         'success': False,
+        #         'message': 'login required',
+        #     })
 
         params = json.loads(request.body.decode())
         assessment_type = params.get('assessment_type')

@@ -84,12 +84,12 @@ class SessionView(View):
         })
 
     def delete(self, request):
-        if not request.user.is_authenticated():
-            return JsonResponse({
-                'success': False,
-                'message': 'login required',
-            })
-        logout(request)
+        # if not request.user.is_authenticated():
+        #     return JsonResponse({
+        #         'success': False,
+        #         'message': 'login required',
+        #     })
+        # logout(request)
 
         return JsonResponse({
             'success': True,
