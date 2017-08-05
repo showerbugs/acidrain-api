@@ -2,6 +2,26 @@
 
 ## API Docs
 
+### 공통
+
+- 요청의 바디가 없을 경우:
+
+```
+{
+    "success": false,
+    "message": "no request body"
+}
+```
+
+- 세션이 없는 경우
+
+```
+{
+    "success": false,
+    "message": "login required"
+}
+```
+
 ### 회원
 
 #### 회원 가입
@@ -17,15 +37,6 @@
         "name": "qodot",
         "joined_at": "2017-08-05T09:09:37.084Z",
     }
-}
-```
-
-- 요청의 바디가 없을 경우:
-
-```
-{
-    "success": false,
-    "message": "no request body"
 }
 ```
 
@@ -64,15 +75,6 @@
 }
 ```
 
-- 요청의 바디가 없을 경우:
-
-```
-{
-    "success": false,
-    "message": "no request body"
-}
-```
-
 - `name`, `password`가 없을 경우:
 
 ```
@@ -103,15 +105,6 @@
 }
 ```
 
-- 세션이 없는 경우
-
-```
-{
-    "success": false,
-    "message": "login required"
-}
-```
-
 ### 평가
 
 #### 평가 시작
@@ -131,24 +124,6 @@
         "difficulty": 1,
         "type": "word"
     }]
-}
-```
-
-- 요청의 바디가 없을 경우:
-
-```
-{
-    "success": false,
-    "message": "no request body"
-}
-```
-
-- 세션이 없는 경우
-
-```
-{
-    "success": false,
-    "message": "login required"
 }
 ```
 
@@ -182,24 +157,6 @@
 ```
 {
     "success": True,
-}
-```
-
-- 요청의 바디가 없을 경우:
-
-```
-{
-    "success": false,
-    "message": "no request body"
-}
-```
-
-- 세션이 없는 경우
-
-```
-{
-    "success": false,
-    "message": "login required"
 }
 ```
 
