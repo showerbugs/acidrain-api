@@ -19,10 +19,12 @@ from django.contrib import admin
 from users.views import UserView
 from users.views import SessionView
 from sentences.views import SentenceView
+from assessments.views import HistoryView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^users/$', UserView.as_view(), name='users'),
     url(r'^sessions/$', SessionView.as_view(), name='sessions'),
     url(r'^sentences/$', SentenceView.as_view(), name='sentences'),
+    url(r'^assessments/histories/$', HistoryView.as_view(), name='assessment_histories'),
 ]

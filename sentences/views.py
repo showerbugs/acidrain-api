@@ -27,7 +27,7 @@ class SentenceView(View):
         if not assessment_type or not difficulty or not sentence_count:
             return JsonResponse({
                 'success': False,
-                'message': 'assessment_type, difficulty, sentence_count is required',
+                'message': 'assessment_type, difficulty, sentence_count are required',
             })
         difficulty = int(difficulty)
         sentence_count = int(sentence_count)
