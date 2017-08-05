@@ -137,14 +137,14 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'D:\home\site\wwwroot\acidrain.log'
-        }
+            'filename': os.path.join(BASE_DIR, 'acidrain.log'),
+        },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': False,
-        }
+        },
     }
 }
