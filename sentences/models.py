@@ -1,3 +1,7 @@
+import json
+import random
+
+from django.core import serializers
 from django.db.models import Model
 from django.db.models import CharField
 from django.db.models import TextField
@@ -11,3 +15,13 @@ class Sentence(Model):
     difficulty = IntegerField()
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
+
+    @classmethod
+    def random(cls, assessment_type, count):
+        all_sentences = cls.objects.filter(type=assessment_type).all()
+        return random.sample(list(all_sentences), count)
+
+    def to_dict(self):
+        serialized = serializers.serialize('json', [self])
+        dicted = json.loads(serialized)[0]
+        return dicted
