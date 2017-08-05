@@ -19,7 +19,7 @@ class UserView(View):
                 'message': 'no request body',
             })
 
-        params = json.loads(request.body)
+        params = json.loads(request.body.decode())
         name = params.get('name')
         password = params.get('password')
         if not name or not password:
@@ -54,7 +54,7 @@ class SessionView(View):
                 'message': 'no request body',
             })
 
-        params = json.loads(request.body)
+        params = json.loads(request.body.decode())
         name = params.get('name')
         password = params.get('password')
         if not name or not password:

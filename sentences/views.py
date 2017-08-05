@@ -20,7 +20,7 @@ class SentenceView(View):
                 'message': 'login required',
             })
 
-        params = json.loads(request.body)
+        params = json.loads(request.body.decode())
         assessment_type = params.get('assessment_type')
         difficulty = params.get('difficulty')
         sentence_count = params.get('sentence_count')
