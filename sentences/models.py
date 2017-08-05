@@ -26,3 +26,7 @@ class Sentence(Model):
         serialized = serializers.serialize('json', [self])
         dicted = json.loads(serialized)[0]
         return dicted
+
+    def __str__(self):
+        return 'type: {}, difficulty: {}, body {}'.format(
+            self.type, self.difficulty, self.body)
