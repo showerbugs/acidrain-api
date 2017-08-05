@@ -22,16 +22,19 @@ class SentenceView(View):
 
         params = json.loads(request.body)
         assessment_type = params.get('assessment_type')
+        difficulty = params.get('difficulty')
         sentence_count = params.get('sentence_count')
-        if not assessment_type or not sentence_count:
+        if not assessment_type or not difficulty or not sentence_count:
             return JsonResponse({
                 'success': False,
-                'message': 'assessment_type and sentence_count is required',
+                'message': 'assessment_type, difficulty, sentence_count is required',
             })
+        difficulty = int(difficulty)
         sentence_count = int(sentence_count)
 
         try:
-            samples = Sentence.random(assessment_type, sentence_count)
+            samples = Sentence.random(
+                assessment_type, difficulty, sentence_count)
         except ValueError:
             return JsonResponse({
                 'success': False,

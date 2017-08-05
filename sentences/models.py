@@ -17,8 +17,9 @@ class Sentence(Model):
     updated_at = DateTimeField(auto_now=True)
 
     @classmethod
-    def random(cls, assessment_type, count):
-        all_sentences = cls.objects.filter(type=assessment_type).all()
+    def random(cls, assessment_type, difficulty, count):
+        all_sentences = cls.objects\
+            .filter(type=assessment_type, difficulty=difficulty).all()
         return random.sample(list(all_sentences), count)
 
     def to_dict(self):
