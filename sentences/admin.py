@@ -1,3 +1,9 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 
-# Register your models here.
+from sentences.models import Sentence
+
+
+@admin.register(Sentence)
+class SentenceAdmin(ModelAdmin):
+    pass
