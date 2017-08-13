@@ -9,49 +9,50 @@ from django.http import JsonResponse
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 
-from commons.decorators import request_body_required
+from commons.decorators import validate_request_body
 from commons.decorators import login_required
 from users.models import User
 
 
-@method_decorator(request_body_required, name='dispatch')
+@method_decorator(validate_request_body, name='dispatch')
 class UserView(View):
     def post(self, request):
-        if not request.body:
-            return JsonResponse({
-                'success': False,
-                'message': 'no request body',
-            })
-
-        params = json.loads(request.body.decode())
-        name = params.get('name')
-        password = params.get('password')
+        name = request.json.get('name')
+        password = request.json.get('password')
         if not name or not password:
-            return JsonResponse({
-                'success': False,
-                'message': 'no name or password',
-            })
+            return JsonResponse(
+                status=400,
+                data={
+                    'success': False,
+                    'message': 'no name or password',
+                }
+            )
 
         try:
             user = User.objects.create_user(name, password=password)
         except IntegrityError:
-            return JsonResponse({
-                'success': False,
-                'message': 'this name already exists',
-            })
+            return JsonResponse(
+                status=409,
+                data={
+                    'message': 'already existed name',
+                }
+            )
         user = user.to_dict()
 
-        return JsonResponse({
-            'success': True,
-            'user': {
-                'name': user['fields']['username'],
-                'joined_at': user['fields']['date_joined'],
-            },
-        })
+        return JsonResponse(
+            status=201,
+            data={
+                'user': {
+                    'id': user['pk'],
+                    'name': user['fields']['username'],
+                    'joined_at': user['fields']['date_joined'],
+                },
+            }
+        )
 
 
 class SessionView(View):
-    @method_decorator(request_body_required)
+    @method_decorator(validate_request_body)
     def post(self, request):
         params = json.loads(request.body.decode())
         name = params.get('name')
@@ -82,9 +83,9 @@ class SessionView(View):
             },
         })
 
-    # @method_decorator(login_required)
+    @method_decorator(login_required)
     def delete(self, request):
-        # logout(request)
+        logout(request)
 
         return JsonResponse({
             'success': True,

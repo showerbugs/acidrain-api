@@ -4,15 +4,15 @@ from django.http import JsonResponse
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 
-from commons.decorators import request_body_required
+from commons.decorators import validate_request_body
 from commons.decorators import login_required
 from assessments.models import Assessment
 from assessments.models import History
 
 
-@method_decorator(request_body_required, name='dispatch')
+@method_decorator(validate_request_body, name='dispatch')
 class HistoryView(View):
-    # @method_decorator(login_required)
+    @method_decorator(login_required)
     def post(self, request):
         params = json.loads(request.body.decode())
         assessment_type = params.get('assessment_type')
